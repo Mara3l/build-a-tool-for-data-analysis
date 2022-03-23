@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  postgres:
+    container_name: online-shop-postgres
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    env_file:
+      - docker.env
+    volumes:
+      - ./db-data:/var/lib/postgresql/data/pgdata
+
+  gooddata:
+    container_name: gooddata
+    image: gooddata/gooddata-cn-ce:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - /data
+    stdin_open: true
+    tty: true
+    environment:
+      - BUNDLE_TYPE=article_how_to_analyze_data_from_postgres
+      - LICENSE_AND_PRIVACY_POLICY_ACCEPTED=YES
